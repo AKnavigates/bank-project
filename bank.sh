@@ -12,8 +12,22 @@ while true; do
     read -p "Choose an option: " choice
 
     case $choice in
-        1) echo "Deposit section" ;;
-        2) echo "Withdraw section" ;;
+        1)
+            read -p "Enter amount to deposit: " amount
+            balance=$((balance + amount))
+            echo "Deposited $amount."
+            echo "New balance: $balance"
+            ;;
+        2)
+            read -p "Enter amount to withdraw: " amount
+            if [ "$amount" -gt "$balance" ]; then
+                echo "Insufficient funds!"
+            else
+                balance=$((balance - amount))
+                echo "Withdrew $amount."
+                echo "New balance: $balance"
+            fi
+            ;;
         3) echo "Your current balance: $balance" ;;
         4) echo "Goodbye!"; exit 0 ;;
         *) echo "Invalid option!"
